@@ -67,9 +67,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        myWebView.loadUrl("http://16.16.238.235:8080")
-//        myWebView.loadUrl("http://10.0.2.2:3000")
-        myWebView.loadUrl("http://192.168.14.7:8082")
+        myWebView.loadUrl("http://16.16.238.235:8080")
+//        myWebView.loadUrl("http://10.0.2.2:3001")
+//        myWebView.loadUrl("http://192.168.14.7:8082")
         myWebView.addJavascriptInterface(WebAppInterface(this), "Android")
 
         myWebView.setDownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
@@ -120,6 +120,7 @@ class MainActivity : AppCompatActivity() {
         return when {
             url.endsWith(".jpg") || url.endsWith(".jpeg") -> "image/jpeg"
             url.endsWith(".png") -> "image/png"
+            url.endsWith(".apk") -> "application/vnd.android.package-archive"
             // 기타 다른 파일 확장자에 대한 처리
             else -> "application/octet-stream"
         }
