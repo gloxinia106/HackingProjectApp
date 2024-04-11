@@ -67,12 +67,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        myWebView.loadUrl("http://16.16.238.235:8080")
+//        myWebView.loadUrl("http://16.16.238.235:8080")
 //        myWebView.loadUrl("http://10.0.2.2:3001")
-//        myWebView.loadUrl("http://192.168.14.7:8082")
+//        myWebView.loadUrl("http://192.168.29.153:8082/noticewrite")
         myWebView.addJavascriptInterface(WebAppInterface(this), "Android")
 
         myWebView.setDownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
+//            val nonBlobUrl = Uri.parse(url).schemeSpecificPart
             val request = DownloadManager.Request(Uri.parse(url))
             var fileName = contentDisposition
             if (fileName != null && fileName.isNotEmpty()) {
@@ -95,6 +96,8 @@ class MainActivity : AppCompatActivity() {
             } else {
                 mimetype
             }
+            println(fileName)
+            println(mimetype)
             request.setMimeType(adjustedMimeType)
             val cookies = CookieManager.getInstance().getCookie(url)
             request.addRequestHeader("cookie", cookies)
@@ -154,13 +157,24 @@ class MainActivity : AppCompatActivity() {
 
     class WebAppInterface(private val mContext : Context) {
         @JavascriptInterface
-        fun saveMobileStorage(key:String,value:String){
+        fun setItem(key:String,value:String){
             (mContext as MainActivity).writeJwtSharedPreference(key,value)
         }
 
         @JavascriptInterface
-        fun loadMobileStorage(key:String):String{
+        fun getItem(key:String):String{
             val mobileVal = (mContext as MainActivity).readJwtSharedPreference(key)
+            return mobileVal
+        }
+
+        @JavascriptInterface
+        fun setToken(value:String){
+            (mContext as MainActivity).writeJwtSharedPreference("token",value)
+        }
+
+        @JavascriptInterface
+        fun getToken():String{
+            val mobileVal = (mContext as MainActivity).readJwtSharedPreference("token")
             return mobileVal
         }
     }
