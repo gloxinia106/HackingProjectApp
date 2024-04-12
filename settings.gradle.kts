@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "WebViewTest"
+rootProject.name = "RookieStock"
 include(":app")

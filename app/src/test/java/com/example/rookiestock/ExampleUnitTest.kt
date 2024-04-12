@@ -1,4 +1,4 @@
-package com.example.webviewtest
+package com.example.rookiestock
 
 import org.junit.Test
 

@@ -1,6 +1,5 @@
-package com.example.webviewtest
+package com.example.rookiestock
 
-import android.R.attr.mimeType
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DownloadManager
@@ -67,13 +66,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        myWebView.loadUrl("http://16.16.238.235:8080")
-//        myWebView.loadUrl("http://10.0.2.2:3001")
-//        myWebView.loadUrl("http://192.168.29.153:8082/noticewrite")
+        myWebView.loadUrl("http://www.rookiestock.com")
         myWebView.addJavascriptInterface(WebAppInterface(this), "Android")
 
         myWebView.setDownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
-//            val nonBlobUrl = Uri.parse(url).schemeSpecificPart
             val request = DownloadManager.Request(Uri.parse(url))
             var fileName = contentDisposition
             if (fileName != null && fileName.isNotEmpty()) {
